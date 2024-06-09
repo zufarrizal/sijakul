@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Dashboard</h1>
+        <div class="row" id="dashboard-cards">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('dashboard-cards');
+                    for (const table in data) {
+                        const card = document.createElement('div');
+                        card.className = 'col-md-4';
+                        let folderName;
+                        switch (table) {
+                            case 'dosen':
+                                folderName = 'dosen';
+                                break;
+                            case 'matkul':
+                                folderName = 'matkul';
+                                break;
+                            case 'dosen_matkul':
+                                folderName = 'dosenmatkul';
+                                break;
+                            case 'kelas':
+                                folderName = 'kelas';
+                                break;
+                            case 'kelas_matkul':
+                                folderName = 'kelasmatkul';
+                                break;
+                            case 'ruangan':
+                                folderName = 'ruangan';
+                                break;
+                            case 'jadwal':
+                                folderName = 'jadwal';
+                                break;
+                            default:
+                                folderName = '#';
+                        }
+                        card.innerHTML = `
+                            <div class="card mb-3">
+                                <div class="card-header">${table}</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${data[table]}</h5>
+                                    <p class="card-text">Total records in ${table}</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='${folderName}'">
+                                        <i class="fas fa-folder-open"></i> Go to ${folderName}
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
