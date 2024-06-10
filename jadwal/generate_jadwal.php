@@ -50,9 +50,13 @@ while ($row = $result->fetch_assoc()) {
 
 // Generate jadwal
 $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-$start_time = new DateTime('08:00');
-$interval = new DateInterval('PT1H30M');
-$max_classes_per_day = 4; // Maksimal 4 kelas per hari
+$time_slots = [
+    ['08:00', '09:30'],
+    ['10:00', '11:30'],
+    ['13:00', '14:30'],
+    ['15:00', '16:30']
+];
+$max_classes_per_day = count($time_slots); // Maksimal kelas per hari sesuai dengan slot waktu
 
 foreach ($kelas_matkul as $id_kelas => $matkuls) {
     shuffle($matkuls); // Acak urutan matkul
@@ -62,7 +66,7 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
     foreach ($days as $day) {
         if ($class_count >= count($matkuls)) break;
 
-        for ($i = 0; $i < $max_classes_per_day; $i++) {
+        foreach ($time_slots as $slot) {
             if ($class_count >= count($matkuls)) break;
 
             $id_matkul = $matkuls[$class_count];
@@ -70,16 +74,6 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
             // Pastikan matkul tidak sama dalam satu hari
             if (isset($week_schedule[$day]) && in_array($id_matkul, $week_schedule[$day])) {
                 continue;
-            }
-
-            // Cek waktu untuk memastikan tidak berada di antara 11:30 dan 13:00
-            $start = clone $start_time;
-            $end = clone $start_time;
-            $end->add($interval);
-
-            if ($start->format('H:i') >= '11:30' && $start->format('H:i') < '13:00') {
-                $start_time->setTime(13, 0);
-                $end->setTime(13, 0)->add($interval);
             }
 
             // Tambahkan ke jadwal mingguan
@@ -96,16 +90,14 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
 
             // Insert ke tabel jadwal
             $sql = "INSERT INTO jadwal (hari, jam_mulai, jam_selesai, id_kelas, id_matkul, id_dosen, id_ruangan) 
-                    VALUES ('$day', '" . $start->format('H:i') . "', '" . $end->format('H:i') . "', $id_kelas, $id_matkul, $id_dosen, $id_ruangan)";
+                    VALUES ('$day', '" . $slot[0] . "', '" . $slot[1] . "', $id_kelas, $id_matkul, $id_dosen, $id_ruangan)";
             if (!$conn->query($sql)) {
                 echo "Error: " . $conn->error;
                 exit;
             }
 
-            $start_time->add(new DateInterval('PT15M')); // Tambahkan jeda 15 menit
             $class_count++;
         }
-        $start_time = new DateTime('08:00'); // Reset start time untuk hari berikutnya
     }
 }
 
