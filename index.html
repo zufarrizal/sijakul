@@ -19,11 +19,11 @@
         .container {
             flex: 1;
             padding-top: 50px;
-            padding-bottom: 50px; /* Added padding to accommodate footer */
+            padding-bottom: 50px;
         }
 
-        .card-deck .card {
-            margin-bottom: 30px;
+        .collapse-container {
+            margin-bottom: 10px;
         }
 
         .faq-section {
@@ -48,17 +48,13 @@
             color: #fff;
         }
 
-        .card-body h5 {
-            color: #007bff;
-        }
-
         footer {
             background-color: #343a40;
             color: white;
             text-align: center;
             padding: 15px 0;
             width: 100%;
-            margin-top: auto; /* Pushes footer to the bottom */
+            margin-top: auto;
         }
     </style>
 </head>
@@ -66,7 +62,7 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-5">SIJAKUL Dashboard</h1>
-        <div class="card-deck" id="dashboard-cards">
+        <div id="dashboard-cards">
             <!-- Cards will be dynamically inserted here -->
         </div>
 
@@ -165,10 +161,8 @@
     </footer>
     
     <script>
-        // Set the current year dynamically
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -176,6 +170,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('dashboard-cards');
+                    const orderedTables = ['dosen', 'matkul', 'dosen_matkul', 'kelas', 'kelas_matkul', 'ruangan', 'jadwal'];
                     const icons = {
                         dosen: 'user-tie',
                         matkul: 'book',
@@ -186,27 +181,34 @@
                         jadwal: 'calendar-alt'
                     };
 
-                    for (const table in data) {
-                        const card = document.createElement('div');
-                        card.className = 'col-md-4';
-                        const icon = icons[table] || 'file-alt';
-                        card.innerHTML = `
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <i class="fas fa-${icon} fa-2x"></i>
-                                    <h5 class="mt-2">${table}</h5>
+                    orderedTables.forEach((table, index) => {
+                        if (data[table]) {
+                            const collapseId = `collapse-${table}`;
+                            const card = document.createElement('div');
+                            card.className = 'collapse-container';
+                            card.innerHTML = `
+                                <div class="card">
+                                    <div class="card-header" id="heading-${table}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${collapseId}">
+                                                <i class="fas fa-${icons[table]} fa-lg"></i> ${table.charAt(0).toUpperCase() + table.slice(1).replace('_', ' ')}
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="${collapseId}" class="collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading-${table}" data-parent="#dashboard-cards">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${data[table]}</h5>
+                                            <p class="card-text">Total records in ${table}</p>
+                                            <button class="btn btn-primary" onclick="window.location.href='${table}.html'">
+                                                <i class="fas fa-folder-open"></i> Go to ${table.charAt(0).toUpperCase() + table.slice(1).replace('_', ' ')}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">${data[table]}</h5>
-                                    <p class="card-text">Total records in ${table}</p>
-                                    <button class="btn btn-primary" onclick="window.location.href='${table}'">
-                                        <i class="fas fa-folder-open"></i> Go to ${table}
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                        container.appendChild(card);
-                    }
+                            `;
+                            container.appendChild(card);
+                        }
+                    });
                 })
                 .catch(error => console.error('Error:', error));
         });
