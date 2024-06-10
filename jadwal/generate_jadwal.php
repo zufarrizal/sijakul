@@ -48,6 +48,21 @@ while ($row = $result->fetch_assoc()) {
     $dosen_matkul[$row['id_matkul']][] = $row['id_dosen'];
 }
 
+// Function to check if a room is available at a given time
+function isRoomAvailable($conn, $id_ruangan, $hari, $jam_mulai, $jam_selesai)
+{
+    $query = "SELECT COUNT(*) as count FROM jadwal 
+              WHERE id_ruangan = ? AND hari = ? 
+              AND ((jam_mulai < ? AND jam_selesai > ?) 
+              OR (jam_mulai < ? AND jam_selesai > ?) 
+              OR (jam_mulai >= ? AND jam_selesai <= ?))";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('isssssss', $id_ruangan, $hari, $jam_selesai, $jam_mulai, $jam_mulai, $jam_selesai, $jam_mulai, $jam_selesai);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    return $result['count'] == 0;
+}
+
 // Generate jadwal
 $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 $time_slots = [
@@ -76,29 +91,28 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
                 continue;
             }
 
-            // Tambahkan ke jadwal mingguan
-            $week_schedule[$day][] = $id_matkul;
-
-            // Pilih dosen dan ruangan secara acak untuk matkul ini dari daftar yang valid
-            if (isset($dosen_matkul[$id_matkul]) && count($dosen_matkul[$id_matkul]) > 0) {
-                $id_dosen = $dosen_matkul[$id_matkul][array_rand($dosen_matkul[$id_matkul])];
-            } else {
-                echo "Error: No dosen found for matkul id $id_matkul";
-                exit;
-            }
+            $id_dosen = $dosen_matkul[$id_matkul][array_rand($dosen_matkul[$id_matkul])];
             $id_ruangan = $ruangan_list[array_rand($ruangan_list)];
 
-            // Insert ke tabel jadwal
-            $sql = "INSERT INTO jadwal (hari, jam_mulai, jam_selesai, id_kelas, id_matkul, id_dosen, id_ruangan) 
-                    VALUES ('$day', '" . $slot[0] . "', '" . $slot[1] . "', $id_kelas, $id_matkul, $id_dosen, $id_ruangan)";
-            if (!$conn->query($sql)) {
-                echo "Error: " . $conn->error;
-                exit;
+            // Pengecekan bentrok ruangan
+            if (!isRoomAvailable($conn, $id_ruangan, $day, $slot[0], $slot[1])) {
+                echo "Ruangan bentrok: Hari: $day, Slot: " . $slot[0] . " - " . $slot[1] . ", Ruangan: $id_ruangan\n";
+                continue; // Jika bentrok, lanjutkan ke slot waktu berikutnya
             }
 
-            $class_count++;
+            // Simpan jadwal
+            $sql = "INSERT INTO jadwal (hari, jam_mulai, jam_selesai, id_kelas, id_matkul, id_dosen, id_ruangan)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssiisi', $day, $slot[0], $slot[1], $id_kelas, $id_matkul, $id_dosen, $id_ruangan);
+            if (!$stmt->execute()) {
+                echo "Error: " . $stmt->error . "\n";
+            } else {
+                $week_schedule[$day][] = $id_matkul;
+                $class_count++;
+            }
         }
     }
 }
 
-echo "success";
+echo "Jadwal berhasil digenerate";
