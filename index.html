@@ -158,9 +158,17 @@
         </div>
     </div>
 
-    <footer>
-        Copyright SIJAKUL by Zufar Rizal tahun 2024
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
+        </div>
     </footer>
+    
+    <script>
+        // Set the current year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
