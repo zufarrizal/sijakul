@@ -26,6 +26,15 @@
             margin-bottom: 10px;
         }
 
+        .collapse-header {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .icon-text-spacing {
+            margin-left: 10px;
+        }
+
         .faq-section {
             margin-top: 50px;
         }
@@ -159,13 +168,13 @@
             <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
         </div>
     </footer>
-    
+
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetch('get_data.php')
                 .then(response => response.json())
                 .then(data => {
@@ -190,8 +199,8 @@
                                 <div class="card">
                                     <div class="card-header" id="heading-${table}">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-link" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${collapseId}">
-                                                <i class="fas fa-${icons[table]} fa-lg"></i> ${table.charAt(0).toUpperCase() + table.slice(1).replace('_', ' ')}
+                                            <button class="btn btn-link collapse-header" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${collapseId}">
+                                                <i class="fas fa-${icons[table]} fa-lg"></i><span class="icon-text-spacing">${table.toUpperCase().replace('_', ' ')}</span>
                                             </button>
                                         </h5>
                                     </div>
@@ -199,8 +208,8 @@
                                         <div class="card-body">
                                             <h5 class="card-title">${data[table]}</h5>
                                             <p class="card-text">Total records in ${table}</p>
-                                            <button class="btn btn-primary" onclick="window.location.href='${table}.html'">
-                                                <i class="fas fa-folder-open"></i> Go to ${table.charAt(0).toUpperCase() + table.slice(1).replace('_', ' ')}
+                                            <button class="btn btn-primary" onclick="window.location.href='${table}'">
+                                                <i class="fas fa-folder-open"></i> Go to ${table.toUpperCase().replace('_', ' ')}
                                             </button>
                                         </div>
                                     </div>
