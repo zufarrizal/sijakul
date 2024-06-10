@@ -81,8 +81,8 @@
                 <div class="card">
                     <div class="card-header" id="faqHeading1">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
-                                Bagaimana cara menggunakan SIJAKUL?
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                Bagaimana Cara Menggunakan SIJAKUL?
                             </button>
                         </h2>
                     </div>
@@ -136,8 +136,8 @@
                 <div class="card">
                     <div class="card-header" id="faqHeading2">
                         <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-                                Bagaimana cara menghapus data?
+                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                Bagaimana Cara Menghapus Semua Data?
                             </button>
                         </h2>
                     </div>
@@ -211,7 +211,7 @@
                                     <div id="${collapseId}" class="collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading-${table}" data-parent="#dashboard-cards">
                                         <div class="card-body">
                                             <h5 class="card-title">${data[table]}</h5>
-                                            <p class="card-text">Total records in ${table}</p>
+                                            <p class="card-text">Total records in ${table.toUpperCase().replace('_', ' ')}</p>
                                             <button class="btn btn-primary" onclick="window.location.href='${table}'">
                                                 <i class="fas fa-folder-open"></i> Go to ${table.toUpperCase().replace('_', ' ')}
                                             </button>
