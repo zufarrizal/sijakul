@@ -66,28 +66,8 @@ Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMP
    - Buat database baru dengan nama `sijakul`.
    - Impor file database (misalnya `sijakul.sql`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
 
-5. **Konfigurasi File `config.php`**:
-   - Buka file `config.php` atau file konfigurasi database lainnya di dalam proyek.
-   - Sesuaikan pengaturan koneksi database dengan detail berikut:
-     ```php
-     $servername = "localhost";
-     $username = "root";
-     $password = "";
-     $dbname = "sijakul";
-     ```
 
-6. **Instal Dependensi PHP**:
-   - Pastikan Anda telah menginstal Composer di sistem Anda. Jika belum, unduh dan instal dari [situs resmi Composer](https://getcomposer.org/).
-   - Buka terminal atau Command Prompt, lalu navigasikan ke direktori proyek:
-     ```
-     cd C:\xampp\htdocs\sijakul
-     ```
-   - Jalankan perintah berikut untuk menginstal dependensi yang diperlukan:
-     ```
-     composer install
-     ```
-
-7. **Jalankan Aplikasi**:
+5. **Jalankan Aplikasi**:
    - Buka browser dan akses aplikasi dengan URL:
      ```
      http://localhost/sijakul
