@@ -1,143 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Ruangan</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .floating-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-<div class="container mt-5">
-    <h2>Manajemen Ruangan</h2>
-    <div class="row mb-4">
-        <div class="col">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addRuanganModal">
-                <i class="fas fa-plus"></i> Tambah Ruangan
-            </button>
-            <button class="btn btn-warning" onclick="window.location.href='../'">
-                <i class="fas fa-arrow-left"></i> Dashboard
-            </button> 
-        </div>
-        <div class="col">
-            <input type="text" id="searchBox" class="form-control" placeholder="Cari...">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="nama_ruangan" checked>
-                <label class="form-check-label" for="searchNama">Nama Ruangan</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="kapasitas">
-                <label class="form-check-label" for="searchKapasitas">Kapasitas</label>
-            </div>
-        </div>
-    </div>
-    <table class="table table-bordered" id="ruanganTable">
-        <thead>
-        <tr>
-            <th>ID Ruangan</th>
-            <th>Nama Ruangan</th>
-            <th>Kapasitas</th>
-            <th>Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Data akan dimuat di sini menggunakan JavaScript -->
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal Tambah Ruangan -->
-<div class="modal" id="addRuanganModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Ruangan</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="addRuanganForm">
-                    <div class="form-group">
-                        <label for="nama_ruangan">Nama Ruangan:</label>
-                        <input type="text" class="form-control" id="nama_ruangan" name="nama_ruangan" required>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Manajemen Ruangan</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            .floating-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2>Manajemen Ruangan</h2>
+            <div class="row mb-4">
+                <div class="col">
+                    <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#addRuanganModal"
+                    >
+                        <i class="fas fa-plus"></i> Tambah Ruangan
+                    </button>
+                    <button
+                        class="btn btn-warning"
+                        onclick="window.location.href='../'"
+                    >
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                </div>
+                <div class="col">
+                    <input
+                        type="text"
+                        id="searchBox"
+                        class="form-control"
+                        placeholder="Cari..."
+                    />
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="nama_ruangan"
+                            checked
+                        />
+                        <label class="form-check-label" for="searchNama"
+                            >Nama Ruangan</label
+                        >
                     </div>
-                    <div class="form-group">
-                        <label for="kapasitas">Kapasitas:</label>
-                        <input type="number" class="form-control" id="kapasitas" name="kapasitas" required>
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="kapasitas"
+                        />
+                        <label class="form-check-label" for="searchKapasitas"
+                            >Kapasitas</label
+                        >
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
-                </form>
+                </div>
+            </div>
+            <table class="table table-bordered" id="ruanganTable">
+                <thead>
+                    <tr>
+                        <th>ID Ruangan</th>
+                        <th>Nama Ruangan</th>
+                        <th>Kapasitas</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan dimuat di sini menggunakan JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Tambah Ruangan -->
+        <div class="modal" id="addRuanganModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Ruangan</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addRuanganForm">
+                            <div class="form-group">
+                                <label for="nama_ruangan">Nama Ruangan:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="nama_ruangan"
+                                    name="nama_ruangan"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="kapasitas">Kapasitas:</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="kapasitas"
+                                    name="kapasitas"
+                                    required
+                                />
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Tambah
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Edit Ruangan -->
-<div class="modal" id="editRuanganModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Ruangan</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="editRuanganForm">
-                    <input type="hidden" id="editIdRuangan" name="id_ruangan">
-                    <div class="form-group">
-                        <label for="editNamaRuangan">Nama Ruangan:</label>
-                        <input type="text" class="form-control" id="editNamaRuangan" name="nama_ruangan" required>
+        <!-- Modal Edit Ruangan -->
+        <div class="modal" id="editRuanganModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Ruangan</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="editKapasitas">Kapasitas:</label>
-                        <input type="number" class="form-control" id="editKapasitas" name="kapasitas" required>
+                    <div class="modal-body">
+                        <form id="editRuanganForm">
+                            <input
+                                type="hidden"
+                                id="editIdRuangan"
+                                name="id_ruangan"
+                            />
+                            <div class="form-group">
+                                <label for="editNamaRuangan"
+                                    >Nama Ruangan:</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="editNamaRuangan"
+                                    name="nama_ruangan"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="editKapasitas">Kapasitas:</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="editKapasitas"
+                                    name="kapasitas"
+                                    required
+                                />
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Hapus Ruangan -->
-<div class="modal" id="deleteRuanganModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Hapus Ruangan</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus ruangan ini?</p>
-                <button id="confirmDelete" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</button>
+        <!-- Modal Hapus Ruangan -->
+        <div class="modal" id="deleteRuanganModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Ruangan</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus ruangan ini?</p>
+                        <button id="confirmDelete" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="alert alert-info floating-notification" id="notification" role="alert"></div>
+        <div
+            class="alert alert-info floating-notification"
+            id="notification"
+            role="alert"
+        ></div>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-        <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
-    </div>
-</footer>
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <p class="mb-0">
+                    Copyright &copy; <span id="currentYear"></span> SIJAKUL by
+                    Zufar Rizal. All rights reserved.
+                </p>
+            </div>
+        </footer>
 
-<script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-</script>
+        <script>
+            document.getElementById("currentYear").textContent =
+                new Date().getFullYear();
+        </script>
 
-<script src="ruangan.js"></script>
-</body>
+        <script src="ruangan.js"></script>
+    </body>
 </html>

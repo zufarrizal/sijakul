@@ -5,33 +5,40 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
 ## Fitur-fitur:
 
 1. **Dosen**:
-   - Pengelolaan data dosen yang meliputi penambahan, pengeditan, dan penghapusan data dosen.
+
+    - Pengelolaan data dosen yang meliputi penambahan, pengeditan, dan penghapusan data dosen.
 
 2. **Kelas**:
-   - Pengelolaan data kelas yang meliputi penambahan, pengeditan, dan penghapusan data kelas.
-   - Menyediakan informasi tentang kapasitas kelas.
+
+    - Pengelolaan data kelas yang meliputi penambahan, pengeditan, dan penghapusan data kelas.
+    - Menyediakan informasi tentang kapasitas kelas.
 
 3. **Mata Kuliah (Matkul)**:
-   - Pengelolaan data mata kuliah yang meliputi penambahan, pengeditan, dan penghapusan data mata kuliah.
-   - Informasi tentang jumlah SKS
+
+    - Pengelolaan data mata kuliah yang meliputi penambahan, pengeditan, dan penghapusan data mata kuliah.
+    - Informasi tentang jumlah SKS
 
 4. **Ruangan**:
-   - Pengelolaan data ruangan yang meliputi penambahan, pengeditan, dan penghapusan data ruangan.
-   - Data kapasitas ruangan.
+
+    - Pengelolaan data ruangan yang meliputi penambahan, pengeditan, dan penghapusan data ruangan.
+    - Data kapasitas ruangan.
 
 5. **Jadwal**:
-   - Pengelolaan data jadwal kuliah yang meliputi penambahan, pengeditan, dan penghapusan jadwal kuliah.
+
+    - Pengelolaan data jadwal kuliah yang meliputi penambahan, pengeditan, dan penghapusan jadwal kuliah.
 
 6. **Hubungan Dosen-Mata Kuliah**:
-   - Pengelolaan hubungan antara dosen dengan mata kuliah yang diampu.
+
+    - Pengelolaan hubungan antara dosen dengan mata kuliah yang diampu.
 
 7. **Hubungan Kelas-Mata Kuliah**:
-   - Pengelolaan hubungan antara kelas dengan mata kuliah yang diikuti.
+
+    - Pengelolaan hubungan antara kelas dengan mata kuliah yang diikuti.
 
 8. **Auto Generate Jadwal**:
-   - Fitur otomatis untuk menghasilkan jadwal kuliah berdasarkan preferensi dan aturan yang telah ditentukan.
-   - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
-   - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
+    - Fitur otomatis untuk menghasilkan jadwal kuliah berdasarkan preferensi dan aturan yang telah ditentukan.
+    - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
+    - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
 
 Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMPP, ikuti langkah-langkah berikut:
 
@@ -42,32 +49,36 @@ Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMP
 
 2. **Clone Repositori Ini**:
    Jalankan perintah berikut di terminal atau Command Prompt:
-   ```
-   git clone https://github.com/zufarrizal/sijakul.git
-   ```
+
+    ```
+    git clone https://github.com/zufarrizal/sijakul.git
+    ```
 
 3. **Pindahkan Direktori Proyek**:
    Pindahkan direktori proyek hasil clone ke direktori `htdocs` di dalam direktori instalasi XAMPP. Biasanya, ini terletak di:
-   ```
-   C:\xampp\htdocs
-   ```
-   Sehingga direktori proyek akan menjadi:
-   ```
-   C:\xampp\htdocs\sijakul
-   ```
+
+    ```
+    C:\xampp\htdocs
+    ```
+
+    Sehingga direktori proyek akan menjadi:
+
+    ```
+    C:\xampp\htdocs\sijakul
+    ```
 
 4. **Konfigurasi Database**:
-   - Buka XAMPP dan jalankan `Apache` dan `MySQL`.
-   - Buka browser dan akses [phpMyAdmin](http://localhost/phpmyadmin).
-   - Buat database baru dengan nama `sijakul`.
-   - Impor file database (misalnya `sijakul.sql`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
 
+    - Buka XAMPP dan jalankan `Apache` dan `MySQL`.
+    - Buka browser dan akses [phpMyAdmin](http://localhost/phpmyadmin).
+    - Buat database baru dengan nama `sijakul`.
+    - Impor file database (misalnya `sijakul.sql`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
 
 5. **Jalankan Aplikasi**:
-   - Buka browser dan akses aplikasi dengan URL:
-     ```
-     http://localhost/sijakul
-     ```
+    - Buka browser dan akses aplikasi dengan URL:
+        ```
+        http://localhost/sijakul
+        ```
 
 Dengan mengikuti langkah-langkah di atas, Anda dapat menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan XAMPP. Pastikan semua langkah telah diikuti dengan benar untuk memastikan aplikasi berjalan sesuai dengan yang diharapkan.
 
@@ -79,21 +90,24 @@ Langkah-langkah kontribusi:
 
 1. **Fork repositori ini**.
 2. **Buat branch baru** untuk fitur atau perbaikan bug dengan perintah:
-   ```
-   git checkout -b fitur-atau-perbaikan
-   ```
+
+    ```
+    git checkout -b fitur-atau-perbaikan
+    ```
 
 3. **Lakukan commit pada perubahan Anda**:
    Setelah melakukan perubahan, simpan dengan perintah:
-   ```
-   git commit -m "Deskripsi perubahan"
-   ```
+
+    ```
+    git commit -m "Deskripsi perubahan"
+    ```
 
 4. **Push ke branch**:
    Kirim perubahan ke repositori dengan perintah:
-   ```
-   git push origin fitur-atau-perbaikan
-   ```
+
+    ```
+    git push origin fitur-atau-perbaikan
+    ```
 
 5. **Buat pull request** di GitHub.
 

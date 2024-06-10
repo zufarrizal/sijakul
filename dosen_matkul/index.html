@@ -1,143 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Dosen Matkul</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .floating-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-<div class="container mt-5">
-    <h2>Manajemen Dosen Matkul</h2>
-    <div class="row mb-4">
-        <div class="col">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addDosenMatkulModal">
-                <i class="fas fa-plus"></i> Tambah Dosen Matkul
-            </button>
-            <button class="btn btn-warning" onclick="window.location.href='../'">
-                <i class="fas fa-arrow-left"></i> Dashboard
-            </button> 
-        </div>
-        <div class="col">
-            <input type="text" id="searchBox" class="form-control" placeholder="Cari...">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="dosen" checked>
-                <label class="form-check-label">Nama Dosen</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="matkul">
-                <label class="form-check-label">Nama Matkul</label>
-            </div>
-        </div>
-    </div>
-    <table class="table table-bordered" id="dosenMatkulTable">
-        <thead>
-        <tr>
-            <th>ID Dosen Matkul</th>
-            <th>Nama Dosen</th>
-            <th>Nama Matkul</th>
-            <th>Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Data akan dimuat di sini menggunakan JavaScript -->
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal Tambah Dosen Matkul -->
-<div class="modal" id="addDosenMatkulModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Dosen Matkul</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="addDosenMatkulForm">
-                    <div class="form-group">
-                        <label for="id_dosen">Nama Dosen:</label>
-                        <select class="form-control" id="id_dosen" name="id_dosen" required></select>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Manajemen Dosen Matkul</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            .floating-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2>Manajemen Dosen Matkul</h2>
+            <div class="row mb-4">
+                <div class="col">
+                    <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#addDosenMatkulModal"
+                    >
+                        <i class="fas fa-plus"></i> Tambah Dosen Matkul
+                    </button>
+                    <button
+                        class="btn btn-warning"
+                        onclick="window.location.href='../'"
+                    >
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                </div>
+                <div class="col">
+                    <input
+                        type="text"
+                        id="searchBox"
+                        class="form-control"
+                        placeholder="Cari..."
+                    />
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="dosen"
+                            checked
+                        />
+                        <label class="form-check-label">Nama Dosen</label>
                     </div>
-                    <div class="form-group">
-                        <label for="id_matkul">Nama Matkul:</label>
-                        <select class="form-control" id="id_matkul" name="id_matkul" required></select>
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="matkul"
+                        />
+                        <label class="form-check-label">Nama Matkul</label>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
-                </form>
+                </div>
+            </div>
+            <table class="table table-bordered" id="dosenMatkulTable">
+                <thead>
+                    <tr>
+                        <th>ID Dosen Matkul</th>
+                        <th>Nama Dosen</th>
+                        <th>Nama Matkul</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan dimuat di sini menggunakan JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Tambah Dosen Matkul -->
+        <div class="modal" id="addDosenMatkulModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Dosen Matkul</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addDosenMatkulForm">
+                            <div class="form-group">
+                                <label for="id_dosen">Nama Dosen:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_dosen"
+                                    name="id_dosen"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_matkul">Nama Matkul:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_matkul"
+                                    name="id_matkul"
+                                    required
+                                ></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Tambah
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Edit Dosen Matkul -->
-<div class="modal" id="editDosenMatkulModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Dosen Matkul</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="editDosenMatkulForm">
-                    <input type="hidden" id="editIdDosenMatkul" name="id_dosenmatkul">
-                    <div class="form-group">
-                        <label for="editIdDosen">Nama Dosen:</label>
-                        <select class="form-control" id="editIdDosen" name="id_dosen" required></select>
+        <!-- Modal Edit Dosen Matkul -->
+        <div class="modal" id="editDosenMatkulModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Dosen Matkul</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="editIdMatkul">Nama Matkul:</label>
-                        <select class="form-control" id="editIdMatkul" name="id_matkul" required></select>
+                    <div class="modal-body">
+                        <form id="editDosenMatkulForm">
+                            <input
+                                type="hidden"
+                                id="editIdDosenMatkul"
+                                name="id_dosenmatkul"
+                            />
+                            <div class="form-group">
+                                <label for="editIdDosen">Nama Dosen:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdDosen"
+                                    name="id_dosen"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editIdMatkul">Nama Matkul:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdMatkul"
+                                    name="id_matkul"
+                                    required
+                                ></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Hapus Dosen Matkul -->
-<div class="modal" id="deleteDosenMatkulModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Hapus Dosen Matkul</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus data ini?</p>
-                <button id="confirmDelete" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+        <!-- Modal Hapus Dosen Matkul -->
+        <div class="modal" id="deleteDosenMatkulModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Dosen Matkul</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                        <button id="confirmDelete" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Hapus
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="alert alert-info floating-notification" id="notification" role="alert"></div>
+        <div
+            class="alert alert-info floating-notification"
+            id="notification"
+            role="alert"
+        ></div>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-        <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
-    </div>
-</footer>
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <p class="mb-0">
+                    Copyright &copy; <span id="currentYear"></span> SIJAKUL by
+                    Zufar Rizal. All rights reserved.
+                </p>
+            </div>
+        </footer>
 
-<script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-</script>
+        <script>
+            document.getElementById("currentYear").textContent =
+                new Date().getFullYear();
+        </script>
 
-<script src="dosen_matkul.js"></script>
-</body>
+        <script src="dosen_matkul.js"></script>
+    </body>
 </html>

@@ -1,322 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Jadwal</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .floating-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: none;
-        }
-        .faq-section {
-            margin-top: 40px;
-        }
-        .faq-question {
-            font-weight: bold;
-        }
-        .card + .card {
-            margin-top: 10px;
-        }
-        footer {
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-<div class="container mt-5">
-    <h2>Manajemen Jadwal</h2>
-    <div class="row mb-4">
-        <div class="col">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addJadwalModal">
-                <i class="fas fa-plus"></i> Tambah
-            </button>
-            <button class="btn btn-warning" onclick="window.location.href='../'">
-                <i class="fas fa-arrow-left"></i> Dashboard
-            </button>
-            <button class="btn btn-success" id="generateJadwalBtn">
-                <i class="fas fa-cogs"></i> Generate
-            </button>
-            <button class="btn btn-danger" id="resetJadwalBtn">
-                <i class="fas fa-trash-alt"></i> Reset Jadwal
-            </button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Manajemen Jadwal</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            .floating-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                display: none;
+            }
+            .faq-section {
+                margin-top: 40px;
+            }
+            .faq-question {
+                font-weight: bold;
+            }
+            .card + .card {
+                margin-top: 10px;
+            }
+            footer {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2>Manajemen Jadwal</h2>
+            <div class="row mb-4">
+                <div class="col">
+                    <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#addJadwalModal"
+                    >
+                        <i class="fas fa-plus"></i> Tambah
+                    </button>
+                    <button
+                        class="btn btn-warning"
+                        onclick="window.location.href='../'"
+                    >
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                    <button class="btn btn-success" id="generateJadwalBtn">
+                        <i class="fas fa-cogs"></i> Generate
+                    </button>
+                    <button class="btn btn-danger" id="resetJadwalBtn">
+                        <i class="fas fa-trash-alt"></i> Reset Jadwal
+                    </button>
+                </div>
+                <div class="col">
+                    <input
+                        type="text"
+                        id="searchBox"
+                        class="form-control"
+                        placeholder="Cari..."
+                    />
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="kelas"
+                            checked
+                        />
+                        <label class="form-check-label">Kelas</label>
+                    </div>
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="matkul"
+                        />
+                        <label class="form-check-label">Matkul</label>
+                    </div>
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="dosen"
+                        />
+                        <label class="form-check-label">Dosen</label>
+                    </div>
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="searchColumn"
+                            value="ruangan"
+                        />
+                        <label class="form-check-label">Ruangan</label>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered" id="jadwalTable">
+                <thead>
+                    <tr>
+                        <th>ID Jadwal</th>
+                        <th>Hari</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Kelas</th>
+                        <th>Matkul</th>
+                        <th>Dosen</th>
+                        <th>Ruangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan dimuat di sini menggunakan JavaScript -->
+                </tbody>
+            </table>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3>Frequently Asked Questions (FAQ)</h3>
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button
+                                    class="btn btn-primary faq-question"
+                                    data-toggle="collapse"
+                                    data-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne"
+                                >
+                                    <i class="fas fa-chevron-down"></i> Apa Saja
+                                    Fitur Dalam Tombol Tambah?
+                                </button>
+                            </h5>
+                        </div>
+                        <div
+                            id="collapseOne"
+                            class="collapse"
+                            aria-labelledby="headingOne"
+                            data-parent="#accordion"
+                        >
+                            <div class="card-body">
+                                Tombol tambah memiliki fitur untuk memastikan
+                                tidak ada bentrokan waktu, dosen, mata kuliah,
+                                dan ruangan saat melakukan input.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button
+                                    class="btn btn-primary faq-question"
+                                    data-toggle="collapse"
+                                    data-target="#collapseTwo"
+                                    aria-expanded="false"
+                                    aria-controls="collapseTwo"
+                                >
+                                    <i class="fas fa-chevron-down"></i> Apa Saja
+                                    Fitur Dalam Tombol Generate?
+                                </button>
+                            </h5>
+                        </div>
+                        <div
+                            id="collapseTwo"
+                            class="collapse"
+                            aria-labelledby="headingTwo"
+                            data-parent="#accordion"
+                        >
+                            <div class="card-body">
+                                Tombol Generate memiliki aturan sebagai berikut:
+                                <ol>
+                                    <li>
+                                        Tidak ada bentrok waktu, dosen, ruangan,
+                                        atau mata kuliah dengan dosen yang sama.
+                                    </li>
+                                    <li>
+                                        Satu kelas tidak akan mendapatkan mata
+                                        kuliah yang sama dalam satu hari.
+                                    </li>
+                                    <li>
+                                        Jam kuliah diatur oleh sistem backend
+                                        yaitu pada jam 08.00 - 09.30, 10.00 -
+                                        11.30, 13.00 - 14.30, dan 15.00 - 16.30.
+                                        'C:\xampp\htdocs\sijakul\jadwal\generate_jadwal.php'
+                                        Baris 68
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button
+                                    class="btn btn-primary faq-question"
+                                    data-toggle="collapse"
+                                    data-target="#collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="collapseThree"
+                                >
+                                    <i class="fas fa-chevron-down"></i> Apa Saja
+                                    Fitur Dalam Tombol Reset?
+                                </button>
+                            </h5>
+                        </div>
+                        <div
+                            id="collapseThree"
+                            class="collapse"
+                            aria-labelledby="headingThree"
+                            data-parent="#accordion"
+                        >
+                            <div class="card-body">
+                                Tombol reset memungkinkan kamu untuk menghapus
+                                semua data jadwal yang sudah dibuat sebelumnya.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <input type="text" id="searchBox" class="form-control" placeholder="Cari...">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="kelas" checked>
-                <label class="form-check-label">Kelas</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="matkul">
-                <label class="form-check-label">Matkul</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="dosen">
-                <label class="form-check-label">Dosen</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="searchColumn" value="ruangan">
-                <label class="form-check-label">Ruangan</label>
-            </div>
-        </div>
-    </div>
-    <table class="table table-bordered" id="jadwalTable">
-        <thead>
-        <tr>
-            <th>ID Jadwal</th>
-            <th>Hari</th>
-            <th>Jam Mulai</th>
-            <th>Jam Selesai</th>
-            <th>Kelas</th>
-            <th>Matkul</th>
-            <th>Dosen</th>
-            <th>Ruangan</th>
-            <th>Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Data akan dimuat di sini menggunakan JavaScript -->
-        </tbody>
-    </table>
-    
-    <!-- FAQ Section -->
-    <div class="faq-section">
-        <h3>Frequently Asked Questions (FAQ)</h3>
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-primary faq-question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="fas fa-chevron-down"></i> Apa Saja Fitur Dalam Tombol Tambah?
+
+        <!-- Modal Tambah Jadwal -->
+        <div class="modal" id="addJadwalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Jadwal</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
                         </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        Tombol tambah memiliki fitur untuk memastikan tidak ada bentrokan waktu, dosen, mata kuliah, dan ruangan saat melakukan input.
+                    </div>
+                    <div class="modal-body">
+                        <form id="addJadwalForm">
+                            <div class="form-group">
+                                <label for="hari">Hari:</label>
+                                <select
+                                    class="form-control"
+                                    id="hari"
+                                    name="hari"
+                                    required
+                                >
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jumat">Jumat</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="jam_mulai">Jam Mulai:</label>
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="jam_mulai"
+                                    name="jam_mulai"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="jam_selesai">Jam Selesai:</label>
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="jam_selesai"
+                                    name="jam_selesai"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="id_kelas">Kelas:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_kelas"
+                                    name="id_kelas"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_matkul">Matkul:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_matkul"
+                                    name="id_matkul"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_dosen">Dosen:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_dosen"
+                                    name="id_dosen"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_ruangan">Ruangan:</label>
+                                <select
+                                    class="form-control"
+                                    id="id_ruangan"
+                                    name="id_ruangan"
+                                    required
+                                ></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Tambah
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-primary faq-question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="fas fa-chevron-down"></i> Apa Saja Fitur Dalam Tombol Generate?
+        </div>
+
+        <!-- Modal Edit Jadwal -->
+        <div class="modal" id="editJadwalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Jadwal</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
                         </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        Tombol Generate memiliki aturan sebagai berikut:
-                        <ol>
-                            <li>Tidak ada bentrok waktu, dosen, ruangan, atau mata kuliah dengan dosen yang sama.</li>
-                            <li>Satu kelas tidak akan mendapatkan mata kuliah yang sama dalam satu hari.</li>
-                            <li>Jam kuliah diatur oleh sistem backend yaitu pada jam 08.00 - 09.30, 10.00 - 11.30, 13.00 - 14.30, dan 15.00 - 16.30.</li>
-                        </ol>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editJadwalForm">
+                            <input
+                                type="hidden"
+                                id="editIdJadwal"
+                                name="id_jadwal"
+                            />
+                            <div class="form-group">
+                                <label for="editHari">Hari:</label>
+                                <select
+                                    class="form-control"
+                                    id="editHari"
+                                    name="hari"
+                                    required
+                                >
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jumat">Jumat</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editJamMulai">Jam Mulai:</label>
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="editJamMulai"
+                                    name="jam_mulai"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="editJamSelesai">Jam Selesai:</label>
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="editJamSelesai"
+                                    name="jam_selesai"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="editIdKelas">Kelas:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdKelas"
+                                    name="id_kelas"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editIdMatkul">Matkul:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdMatkul"
+                                    name="id_matkul"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editIdDosen">Dosen:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdDosen"
+                                    name="id_dosen"
+                                    required
+                                ></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editIdRuangan">Ruangan:</label>
+                                <select
+                                    class="form-control"
+                                    id="editIdRuangan"
+                                    name="id_ruangan"
+                                    required
+                                ></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-primary faq-question" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <i class="fas fa-chevron-down"></i> Apa Saja Fitur Dalam Tombol Reset?
+        </div>
+
+        <!-- Modal Hapus Jadwal -->
+        <div class="modal" id="deleteJadwalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Jadwal</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
                         </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        Tombol reset memungkinkan kamu untuk menghapus semua data jadwal yang sudah dibuat sebelumnya.
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                        <button id="confirmDelete" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Hapus
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Tambah Jadwal -->
-<div class="modal" id="addJadwalModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Jadwal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="addJadwalForm">
-                    <div class="form-group">
-                        <label for="hari">Hari:</label>
-                        <select class="form-control" id="hari" name="hari" required>
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-                            <option value="Sabtu">Sabtu</option>
-                        </select>
+        <!-- Modal Konfirmasi Generate Jadwal -->
+        <div class="modal" id="confirmGenerateJadwalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Konfirmasi Generate Jadwal</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="jam_mulai">Jam Mulai:</label>
-                        <input type="time" class="form-control" id="jam_mulai" name="jam_mulai" required>
+                    <div class="modal-body">
+                        <p>
+                            Apakah Anda yakin ingin menghapus semua jadwal dan
+                            generate jadwal baru?
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="jam_selesai">Jam Selesai:</label>
-                        <input type="time" class="form-control" id="jam_selesai" name="jam_selesai" required>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            id="confirmGenerate"
+                        >
+                            Generate Jadwal
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Batal
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="id_kelas">Kelas:</label>
-                        <select class="form-control" id="id_kelas" name="id_kelas" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_matkul">Matkul:</label>
-                        <select class="form-control" id="id_matkul" name="id_matkul" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_dosen">Dosen:</label>
-                        <select class="form-control" id="id_dosen" name="id_dosen" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_ruangan">Ruangan:</label>
-                        <select class="form-control" id="id_ruangan" name="id_ruangan" required></select>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Edit Jadwal -->
-<div class="modal" id="editJadwalModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Jadwal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="editJadwalForm">
-                    <input type="hidden" id="editIdJadwal" name="id_jadwal">
-                    <div class="form-group">
-                        <label for="editHari">Hari:</label>
-                        <select class="form-control" id="editHari" name="hari" required>
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-                            <option value="Sabtu">Sabtu</option>
-                        </select>
+        <!-- Modal Konfirmasi Reset Jadwal -->
+        <div class="modal" id="confirmResetJadwalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Konfirmasi Reset Jadwal</h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                        >
+                            &times;
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="editJamMulai">Jam Mulai:</label>
-                        <input type="time" class="form-control" id="editJamMulai" name="jam_mulai" required>
+                    <div class="modal-body">
+                        <p>
+                            Apakah Anda yakin ingin menghapus semua data jadwal?
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="editJamSelesai">Jam Selesai:</label>
-                        <input type="time" class="form-control" id="editJamSelesai" name="jam_selesai" required>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            id="confirmReset"
+                        >
+                            Reset Jadwal
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Batal
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="editIdKelas">Kelas:</label>
-                        <select class="form-control" id="editIdKelas" name="id_kelas" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editIdMatkul">Matkul:</label>
-                        <select class="form-control" id="editIdMatkul" name="id_matkul" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editIdDosen">Dosen:</label>
-                        <select class="form-control" id="editIdDosen" name="id_dosen" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editIdRuangan">Ruangan:</label>
-                        <select class="form-control" id="editIdRuangan" name="id_ruangan" required></select>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Hapus Jadwal -->
-<div class="modal" id="deleteJadwalModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Hapus Jadwal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus data ini?</p>
-                <button id="confirmDelete" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </div>
-        </div>
-    </div>
-</div>
+        <div
+            class="alert alert-info floating-notification"
+            id="notification"
+            role="alert"
+        ></div>
 
-<!-- Modal Konfirmasi Generate Jadwal -->
-<div class="modal" id="confirmGenerateJadwalModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Konfirmasi Generate Jadwal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;"></button>
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <p class="mb-0">
+                    Copyright &copy; <span id="currentYear"></span> SIJAKUL by
+                    Zufar Rizal. All rights reserved.
+                </p>
             </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus semua jadwal dan generate jadwal baru?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmGenerate">Generate Jadwal</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            </div>
-        </div>
-    </div>
-</div>
+        </footer>
 
-<!-- Modal Konfirmasi Reset Jadwal -->
-<div class="modal" id="confirmResetJadwalModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Konfirmasi Reset Jadwal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus semua data jadwal?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmReset">Reset Jadwal</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            </div>
-        </div>
-    </div>
-</div>
+        <script>
+            document.getElementById("currentYear").textContent =
+                new Date().getFullYear();
+        </script>
 
-<div class="alert alert-info floating-notification" id="notification" role="alert"></div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-        <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
-    </div>
-</footer>
-
-<script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-</script>
-
-<script src="jadwal.js"></script>
-</body>
+        <script src="jadwal.js"></script>
+    </body>
 </html>

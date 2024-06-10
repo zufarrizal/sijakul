@@ -1,236 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SIJAKUL Dashboard</title>
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+                background-color: #f8f9fa;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIJAKUL Dashboard</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
-        }
+            .container {
+                flex: 1;
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
 
-        .container {
-            flex: 1;
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
+            .collapse-container {
+                margin-bottom: 10px;
+            }
 
-        .collapse-container {
-            margin-bottom: 10px;
-        }
+            .collapse-header {
+                font-weight: bold;
+                text-transform: uppercase;
+            }
 
-        .collapse-header {
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+            .icon-text-spacing {
+                margin-left: 10px;
+            }
 
-        .icon-text-spacing {
-            margin-left: 10px;
-        }
+            .faq-section {
+                margin-top: 50px;
+            }
 
-        .faq-section {
-            margin-top: 50px;
-        }
+            .faq-header {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
 
-        .faq-header {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
+            .faq .card-header {
+                background-color: #007bff;
+                color: #fff;
+            }
 
-        .faq .card-header {
-            background-color: #007bff;
-            color: #fff;
-        }
+            .card-header h2 {
+                font-size: 1.25rem;
+            }
 
-        .card-header h2 {
-            font-size: 1.25rem;
-        }
+            .faq .btn-link {
+                color: #fff;
+            }
 
-        .faq .btn-link {
-            color: #fff;
-        }
+            footer {
+                background-color: #343a40;
+                color: white;
+                text-align: center;
+                padding: 15px 0;
+                width: 100%;
+                margin-top: auto;
+            }
+        </style>
+    </head>
 
-        footer {
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            width: 100%;
-            margin-top: auto;
-        }
-    </style>
-</head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mb-5">SIJAKUL Dashboard</h1>
+            <div id="dashboard-cards">
+                <!-- Cards will be dynamically inserted here -->
+            </div>
 
-<body>
-    <div class="container">
-        <h1 class="text-center mb-5">SIJAKUL Dashboard</h1>
-        <div id="dashboard-cards">
-            <!-- Cards will be dynamically inserted here -->
-        </div>
-
-        <div class="faq-section">
-            <div class="faq-header text-center">Frequently Asked Questions</div>
-            <div class="accordion" id="faqAccordion">
-                <div class="card">
-                    <div class="card-header" id="faqHeading1">
-                        <h2 class="mb-0">
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
-                                Bagaimana Cara Menggunakan SIJAKUL?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="faqCollapse1" class="collapse show" aria-labelledby="faqHeading1" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            <ol>
-                                <li>Pastikan semua file dan DATABASE terkoneksi dengan benar.
-                                    <ul>
-                                        <li>Konfirmasikan bahwa server dan DATABASE berjalan sesuai pengaturan.</li>
-                                    </ul>
-                                </li>
-                                <li>Isi data pada halaman DOSEN.
-                                    <ul>
-                                        <li>Masukkan informasi dosen, termasuk nama dan nomor induknya</li>
-                                    </ul>
-                                </li>
-                                <li>Isi data pada halaman MATKUL.
-                                    <ul>
-                                        <li>Masukkan informasi MATA KULIAH dan SKS nya</li>
-                                    </ul>
-                                </li>
-                                <li>Kombinasikan dosen dengan MATA KULIAH yang diampu.
-                                    <ul>
-                                        <li>Gunakan halaman DOSEN MATKUL untuk menghubungkan DOSEN dengan MATA KULIAH yang mereka ajar.</li>
-                                    </ul>
-                                </li>
-                                <li>Isi data KELAS pada halaman KELAS.
-                                    <ul>
-                                        <li>Masukkan informasi KELAS seperti nama KELAS dan kapasitas.</li>
-                                    </ul>
-                                </li>
-                                <li>Hubungkan KELAS dengan MATA KULIAH yang diampu.
-                                    <ul>
-                                        <li>Di halaman KELAS MATKUL, kaitkan KELAS dengan MATA KULIAH yang diambil oleh kelas tersebut.</li>
-                                    </ul>
-                                </li>
-                                <li>Isi data RUANGAN pada halaman RUANGAN.
-                                    <ul>
-                                        <li>Masukkan informasi RUANGAN, termasuk nama dan nomor RUANGAN, kapasitas.</li>
-                                    </ul>
-                                </li>
-                                <li>Buat JADWAL KULIAH.
-                                    <ul>
-                                        <li>Di halaman jadwal, tambahkan JADWAL KULIAH secara manual atau gunakan fitur generate otomatis untuk membuat jadwal berdasarkan ketersediaan dosen, kelas, dan ruangan.</li>
-                                    </ul>
-                                </li>
-                            </ol>
+            <div class="faq-section">
+                <div class="faq-header text-center">
+                    Frequently Asked Questions
+                </div>
+                <div class="accordion" id="faqAccordion">
+                    <div class="card">
+                        <div class="card-header" id="faqHeading1">
+                            <h2 class="mb-0">
+                                <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#faqCollapse1"
+                                    aria-expanded="true"
+                                    aria-controls="faqCollapse1"
+                                >
+                                    Bagaimana Cara Menggunakan SIJAKUL?
+                                </button>
+                            </h2>
+                        </div>
+                        <div
+                            id="faqCollapse1"
+                            class="collapse show"
+                            aria-labelledby="faqHeading1"
+                            data-parent="#faqAccordion"
+                        >
+                            <div class="card-body">
+                                <ol>
+                                    <li>
+                                        Pastikan semua file dan DATABASE
+                                        terkoneksi dengan benar.
+                                        <ul>
+                                            <li>
+                                                Konfirmasikan bahwa server dan
+                                                DATABASE berjalan sesuai
+                                                pengaturan.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Isi data pada halaman DOSEN.
+                                        <ul>
+                                            <li>
+                                                Masukkan informasi dosen,
+                                                termasuk nama dan nomor induknya
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Isi data pada halaman MATKUL.
+                                        <ul>
+                                            <li>
+                                                Masukkan informasi MATA KULIAH
+                                                dan SKS nya
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Kombinasikan dosen dengan MATA KULIAH
+                                        yang diampu.
+                                        <ul>
+                                            <li>
+                                                Gunakan halaman DOSEN MATKUL
+                                                untuk menghubungkan DOSEN dengan
+                                                MATA KULIAH yang mereka ajar.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Isi data KELAS pada halaman KELAS.
+                                        <ul>
+                                            <li>
+                                                Masukkan informasi KELAS seperti
+                                                nama KELAS dan kapasitas.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Hubungkan KELAS dengan MATA KULIAH yang
+                                        diampu.
+                                        <ul>
+                                            <li>
+                                                Di halaman KELAS MATKUL, kaitkan
+                                                KELAS dengan MATA KULIAH yang
+                                                diambil oleh kelas tersebut.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Isi data RUANGAN pada halaman RUANGAN.
+                                        <ul>
+                                            <li>
+                                                Masukkan informasi RUANGAN,
+                                                termasuk nama dan nomor RUANGAN,
+                                                kapasitas.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Buat JADWAL KULIAH.
+                                        <ul>
+                                            <li>
+                                                Di halaman jadwal, tambahkan
+                                                JADWAL KULIAH secara manual atau
+                                                gunakan fitur generate otomatis
+                                                untuk membuat jadwal berdasarkan
+                                                ketersediaan dosen, kelas, dan
+                                                ruangan.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="faqHeading2">
-                        <h2 class="mb-0">
-                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-                                Bagaimana Cara Menghapus Semua Data?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            <ol>
-                                <li>Mulailah dengan menghapus data jadwal.
-                                    <ul>
-                                        <li>Buka halaman jadwal dan hapus entri jadwal yang tidak diperlukan.</li>
-                                    </ul>
-                                </li>
-                                <li>Hapus data yang terkait satu sama lain.
-                                    <ul>
-                                        <li>Hapus data di halaman 'Dosen Matkul' dan 'Kelas Matkul' sebelum menghapus data induk.</li>
-                                    </ul>
-                                </li>
-                                <li>Hapus data induk.
-                                    <ul>
-                                        <li>Buka halaman dosen, mata kuliah, kelas, dan ruangan untuk menghapus data yang tidak berhubungan secara langsung.</li>
-                                    </ul>
-                                </li>
-                            </ol>
+                    <div class="card">
+                        <div class="card-header" id="faqHeading2">
+                            <h2 class="mb-0">
+                                <button
+                                    class="btn btn-primary collapsed"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#faqCollapse2"
+                                    aria-expanded="false"
+                                    aria-controls="faqCollapse2"
+                                >
+                                    Bagaimana Cara Menghapus Semua Data?
+                                </button>
+                            </h2>
+                        </div>
+                        <div
+                            id="faqCollapse2"
+                            class="collapse"
+                            aria-labelledby="faqHeading2"
+                            data-parent="#faqAccordion"
+                        >
+                            <div class="card-body">
+                                <ol>
+                                    <li>
+                                        Mulailah dengan menghapus data jadwal.
+                                        <ul>
+                                            <li>
+                                                Buka halaman jadwal dan hapus
+                                                entri jadwal yang tidak
+                                                diperlukan.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Hapus data yang terkait satu sama lain.
+                                        <ul>
+                                            <li>
+                                                Hapus data di halaman 'Dosen
+                                                Matkul' dan 'Kelas Matkul'
+                                                sebelum menghapus data induk.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Hapus data induk.
+                                        <ul>
+                                            <li>
+                                                Buka halaman dosen, mata kuliah,
+                                                kelas, dan ruangan untuk
+                                                menghapus data yang tidak
+                                                berhubungan secara langsung.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer class="bg-dark text-white text-center py-3 mt-auto">
-        <div class="container">
-            <p class="mb-0">Copyright &copy; <span id="currentYear"></span> SIJAKUL by Zufar Rizal. All rights reserved.</p>
-        </div>
-    </footer>
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <p class="mb-0">
+                    Copyright &copy; <span id="currentYear"></span> SIJAKUL by
+                    Zufar Rizal. All rights reserved.
+                </p>
+            </div>
+        </footer>
 
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
+        <script>
+            document.getElementById("currentYear").textContent =
+                new Date().getFullYear();
+        </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('get_data.php')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('dashboard-cards');
-                    const orderedTables = ['dosen', 'matkul', 'dosen_matkul', 'kelas', 'kelas_matkul', 'ruangan', 'jadwal'];
-                    const icons = {
-                        dosen: 'user-tie',
-                        matkul: 'book',
-                        dosen_matkul: 'chalkboard-teacher',
-                        kelas: 'users',
-                        kelas_matkul: 'clipboard-list',
-                        ruangan: 'door-open',
-                        jadwal: 'calendar-alt'
-                    };
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("get_data.php")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const container =
+                            document.getElementById("dashboard-cards");
+                        const orderedTables = [
+                            "dosen",
+                            "matkul",
+                            "dosen_matkul",
+                            "kelas",
+                            "kelas_matkul",
+                            "ruangan",
+                            "jadwal",
+                        ];
+                        const icons = {
+                            dosen: "user-tie",
+                            matkul: "book",
+                            dosen_matkul: "chalkboard-teacher",
+                            kelas: "users",
+                            kelas_matkul: "clipboard-list",
+                            ruangan: "door-open",
+                            jadwal: "calendar-alt",
+                        };
 
-                    orderedTables.forEach((table, index) => {
-                        if (data[table]) {
-                            const collapseId = `collapse-${table}`;
-                            const card = document.createElement('div');
-                            card.className = 'collapse-container';
-                            card.innerHTML = `
+                        orderedTables.forEach((table, index) => {
+                            if (data[table]) {
+                                const collapseId = `collapse-${table}`;
+                                const card = document.createElement("div");
+                                card.className = "collapse-container";
+                                card.innerHTML = `
                                 <div class="card">
                                     <div class="card-header" id="heading-${table}">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-link collapse-header" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${collapseId}">
-                                                <i class="fas fa-${icons[table]} fa-lg"></i><span class="icon-text-spacing">${table.toUpperCase().replace('_', ' ')}</span>
+                                            <button class="btn btn-link collapse-header" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="${
+                                    index === 0 ? "true" : "false"
+                                }" aria-controls="${collapseId}">
+                                                <i class="fas fa-${
+                                                    icons[table]
+                                                } fa-lg"></i><span class="icon-text-spacing">${table
+                                    .toUpperCase()
+                                    .replace("_", " ")}</span>
                                             </button>
                                         </h5>
                                     </div>
-                                    <div id="${collapseId}" class="collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading-${table}" data-parent="#dashboard-cards">
+                                    <div id="${collapseId}" class="collapse ${
+                                    index === 0 ? "show" : ""
+                                }" aria-labelledby="heading-${table}" data-parent="#dashboard-cards">
                                         <div class="card-body">
-                                            <h5 class="card-title">${data[table]}</h5>
-                                            <p class="card-text">Total records in ${table.toUpperCase().replace('_', ' ')}</p>
+                                            <h5 class="card-title">${
+                                                data[table]
+                                            }</h5>
+                                            <p class="card-text">Total records in ${table
+                                                .toUpperCase()
+                                                .replace("_", " ")}</p>
                                             <button class="btn btn-primary" onclick="window.location.href='${table}'">
-                                                <i class="fas fa-folder-open"></i> Go to ${table.toUpperCase().replace('_', ' ')}
+                                                <i class="fas fa-folder-open"></i> Go to ${table
+                                                    .toUpperCase()
+                                                    .replace("_", " ")}
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             `;
-                            container.appendChild(card);
-                        }
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
+                                container.appendChild(card);
+                            }
+                        });
+                    })
+                    .catch((error) => console.error("Error:", error));
+            });
+        </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</body>
-
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://kit.fontawesome.com/a076d05399.js"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>
