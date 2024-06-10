@@ -1,23 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>SIJAKUL Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
-        .card {
-            margin: 20px;
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            flex: 1;
+            padding-top: 50px;
+            padding-bottom: 50px; /* Added padding to accommodate footer */
+        }
+
+        .card-deck .card {
+            margin-bottom: 30px;
+        }
+
+        .faq-section {
+            margin-top: 50px;
+        }
+
+        .faq-header {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .faq .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-header h2 {
+            font-size: 1.25rem;
+        }
+
+        .faq .btn-link {
+            color: #fff;
+        }
+
+        .card-body h5 {
+            color: #007bff;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            margin-top: auto; /* Pushes footer to the bottom */
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1 class="mt-5">Dashboard</h1>
-        <div class="row" id="dashboard-cards">
+        <h1 class="text-center mb-5">SIJAKUL Dashboard</h1>
+        <div class="card-deck" id="dashboard-cards">
             <!-- Cards will be dynamically inserted here -->
         </div>
+
+        <div class="faq-section">
+            <div class="faq-header text-center">Frequently Asked Questions</div>
+            <div class="accordion" id="faqAccordion">
+                <div class="card">
+                    <div class="card-header" id="faqHeading1">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                Bagaimana cara menggunakan SIJAKUL?
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="faqCollapse1" class="collapse" aria-labelledby="faqHeading1" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            <ol>
+                                <li>Pastikan semua file dan database sudah dikoneksikan.</li>
+                                <li>Isi data pada halaman dosen dan matkul.</li>
+                                <li>Kombinasikan dosen dan matkul yang diampu di halaman dosen matkul.</li>
+                                <li>Isi data pada halaman kelas.</li>
+                                <li>Kombinasikan kelas dan matkul yang diampu di halaman kelas matkul.</li>
+                                <li>Isi data pada halaman ruangan.</li>
+                                <li>Buat jadwal pada halaman jadwal secara manual atau generate secara otomatis.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="faqHeading2">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                Bagaimana cara menghapus data?
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            <ol>
+                                <li>Hapus data jadwal terlebih dahulu.</li>
+                                <li>Hapus data yang berhubungan seperti halaman dosen matkul dan halaman kelas matkul.</li>
+                                <li>Hapus data yang tidak berhubungan seperti dosen, matkul, kelas, dan ruangan.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        Copyright SIJAKUL by Zufar Rizal tahun 2024
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -25,43 +127,31 @@
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('dashboard-cards');
+                    const icons = {
+                        dosen: 'user-tie',
+                        matkul: 'book',
+                        dosen_matkul: 'chalkboard-teacher',
+                        kelas: 'users',
+                        kelas_matkul: 'clipboard-list',
+                        ruangan: 'door-open',
+                        jadwal: 'calendar-alt'
+                    };
+
                     for (const table in data) {
                         const card = document.createElement('div');
                         card.className = 'col-md-4';
-                        let folderName;
-                        switch (table) {
-                            case 'dosen':
-                                folderName = 'dosen';
-                                break;
-                            case 'matkul':
-                                folderName = 'matkul';
-                                break;
-                            case 'dosen_matkul':
-                                folderName = 'dosenmatkul';
-                                break;
-                            case 'kelas':
-                                folderName = 'kelas';
-                                break;
-                            case 'kelas_matkul':
-                                folderName = 'kelasmatkul';
-                                break;
-                            case 'ruangan':
-                                folderName = 'ruangan';
-                                break;
-                            case 'jadwal':
-                                folderName = 'jadwal';
-                                break;
-                            default:
-                                folderName = '#';
-                        }
+                        const icon = icons[table] || 'file-alt';
                         card.innerHTML = `
-                            <div class="card mb-3">
-                                <div class="card-header">${table}</div>
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <i class="fas fa-${icon} fa-2x"></i>
+                                    <h5 class="mt-2">${table}</h5>
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-title">${data[table]}</h5>
                                     <p class="card-text">Total records in ${table}</p>
-                                    <button class="btn btn-primary" onclick="window.location.href='${folderName}'">
-                                        <i class="fas fa-folder-open"></i> Go to ${folderName}
+                                    <button class="btn btn-primary" onclick="window.location.href='${table}'">
+                                        <i class="fas fa-folder-open"></i> Go to ${table}
                                     </button>
                                 </div>
                             </div>
@@ -72,6 +162,11 @@
                 .catch(error => console.error('Error:', error));
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
