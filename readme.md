@@ -37,10 +37,6 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
    - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
    - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
 
-9. **Notifikasi Jadwal**:
-   - Pengingat otomatis untuk dosen dan mahasiswa terkait jadwal kuliah.
-   - Notifikasi melalui email dan aplikasi.
-
 ## Instalasi:
 
 Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal Anda, ikuti langkah-langkah berikut:
