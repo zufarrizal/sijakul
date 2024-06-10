@@ -12,7 +12,6 @@ $stmt->bind_param("i", $id_kelas);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$options = "<option value=''>Pilih Mata Kuliah</option>";
 while ($row = $result->fetch_assoc()) {
     $options .= "<option value='" . $row['id_matkul'] . "'>" . $row['nama_matkul'] . "</option>";
 }

@@ -1,54 +1,56 @@
 <?php
 require 'db_connection.php';
 
-$query = $_GET['query'];
-$column = $_GET['column'];
+// Ambil kolom dan query dari input
+$column = mysqli_real_escape_string($conn, $_GET['column']);
+$query = mysqli_real_escape_string($conn, $_GET['query']);
 
+// Peta kolom input ke kolom yang ada di tabel join
+$column_map = [
+    'kelas' => 'kelas.nama_kelas',
+    'matkul' => 'matkul.nama_matkul',
+    'dosen' => 'dosen.nama_dosen',
+    'ruangan' => 'ruangan.nama_ruangan'
+];
+
+// Cek apakah kolom yang dimasukkan valid untuk menghindari SQL Injection
+if (!array_key_exists($column, $column_map)) {
+    echo "Kolom pencarian tidak valid.";
+    exit;
+}
+
+$mapped_column = $column_map[$column];
+
+// Buat query dengan join ke tabel referensi
 $sql = "SELECT jadwal.*, kelas.nama_kelas, matkul.nama_matkul, dosen.nama_dosen, ruangan.nama_ruangan 
         FROM jadwal 
         JOIN kelas ON jadwal.id_kelas = kelas.id_kelas
         JOIN matkul ON jadwal.id_matkul = matkul.id_matkul
         JOIN dosen ON jadwal.id_dosen = dosen.id_dosen
-        JOIN ruangan ON jadwal.id_ruangan = ruangan.id_ruangan";
+        JOIN ruangan ON jadwal.id_ruangan = ruangan.id_ruangan
+        WHERE $mapped_column LIKE '%$query%'";
+$result = mysqli_query($conn, $sql);
 
-if ($column == 'nama_matkul') {
-    $sql .= " WHERE matkul.nama_matkul LIKE ?";
-} elseif ($column == 'nama_dosen') {
-    $sql .= " WHERE dosen.nama_dosen LIKE ?";
-} elseif ($column == 'nama_kelas') {
-    $sql .= " WHERE kelas.nama_kelas LIKE ?";
-} elseif ($column == 'nama_ruangan') {
-    $sql .= " WHERE ruangan.nama_ruangan LIKE ?";
-} else {
-    $sql .= " WHERE jadwal.$column LIKE ?";
-}
-
-$stmt = $conn->prepare($sql);
-
-if ($stmt) {
-    $search_query = "%" . $query . "%";
-    $stmt->bind_param("s", $search_query);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $jadwals = "";
-    while ($row = $result->fetch_assoc()) {
-        $jadwals .= "<tr>";
-        $jadwals .= "<td>" . $row['hari'] . "</td>";
-        $jadwals .= "<td>" . $row['jam_mulai'] . "</td>";
-        $jadwals .= "<td>" . $row['jam_selesai'] . "</td>";
-        $jadwals .= "<td>" . $row['nama_kelas'] . "</td>";
-        $jadwals .= "<td>" . $row['nama_matkul'] . "</td>";
-        $jadwals .= "<td>" . $row['nama_dosen'] . "</td>";
-        $jadwals .= "<td>" . $row['nama_ruangan'] . "</td>";
-        $jadwals .= "<td>
-                        <button class='btn btn-sm btn-primary edit-btn' data-id='" . $row['id_jadwal'] . "'><i class='fas fa-edit'></i> Edit</button>
-                        <button class='btn btn-sm btn-danger delete-btn' data-id='" . $row['id_jadwal'] . "'><i class='fas fa-trash-alt'></i> Hapus</button>
-                    </td>";
-        $jadwals .= "</tr>";
+// Cek apakah query berhasil dijalankan
+if ($result) {
+    // Loop melalui hasil query dan tampilkan data
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $row['id_jadwal'] . "</td>";
+        echo "<td>" . $row['hari'] . "</td>";
+        echo "<td>" . $row['jam_mulai'] . "</td>";
+        echo "<td>" . $row['jam_selesai'] . "</td>";
+        echo "<td>" . $row['nama_kelas'] . "</td>";
+        echo "<td>" . $row['nama_matkul'] . "</td>";
+        echo "<td>" . $row['nama_dosen'] . "</td>";
+        echo "<td>" . $row['nama_ruangan'] . "</td>";
+        echo "<td><button class='btn edit-btn btn-warning' data-id='" . $row['id_jadwal'] . "'><i class='fas fa-edit'></i> Edit</button><button class='btn delete-btn btn-danger' data-id='" . $row['id_jadwal'] . "'><i class='fas fa-trash'></i> Delete</button></td>";
+        echo "</tr>";
     }
-
-    echo $jadwals;
 } else {
-    echo "Error: " . $conn->error;
+    // Tampilkan pesan kesalahan jika query gagal
+    echo "Kesalahan dalam eksekusi query: " . mysqli_error($conn);
 }
+
+// Tutup koneksi ke database
+mysqli_close($conn);

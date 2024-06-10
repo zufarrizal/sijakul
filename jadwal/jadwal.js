@@ -17,13 +17,14 @@ $(document).ready(function () {
         loadDosenOptionsByMatkul(id_matkul, targetDosen);
     });
 
+    // Fungsi loadData() untuk memuat data jadwal
     function loadData() {
         $.ajax({
             url: 'get_jadwal.php',
             type: 'GET',
             success: function (response) {
                 $('#jadwalTable tbody').html(response);
-                // Add icons to edit and delete buttons
+                // Tambahkan ikon pada tombol edit dan delete
                 $('#jadwalTable .edit-btn').html('<i class="fas fa-edit"></i> Edit');
                 $('#jadwalTable .delete-btn').html('<i class="fas fa-trash-alt"></i> Hapus');
             },
@@ -32,7 +33,7 @@ $(document).ready(function () {
             }
         });
     }
-
+    
     function loadKelasOptions() {
         $.ajax({
             url: 'get_kelas.php',
@@ -228,29 +229,21 @@ $(document).ready(function () {
         });
     });
 
+    // Pencarian jadwal
     $('#searchBox').on('input', function () {
         let query = $(this).val().toLowerCase();
         let column = $('input[name="searchColumn"]:checked').val();
-        searchJadwal(query, column);
-    });
-
-    function searchJadwal(query, column) {
         $.ajax({
             url: 'search_jadwal.php',
             type: 'GET',
-            data: { query: query, column: column },
+            data: { query, column },
             success: function (response) {
                 $('#jadwalTable tbody').html(response);
-                // Menambahkan ikon pada tombol edit dan hapus setelah pencarian
-                $('#jadwalTable .edit-btn').html('<i class="fas fa-edit"></i> Edit');
-                $('#jadwalTable .delete-btn').html('<i class="fas fa-trash-alt"></i> Hapus');
-            },
-            error: function () {
-                showNotification('Gagal mencari data', 'danger');
             }
         });
-    }
+    });
 
+    // Fungsi untuk menampilkan notifikasi
     function showNotification(message, type) {
         let notification = $('#notification');
         notification.removeClass();
@@ -261,4 +254,60 @@ $(document).ready(function () {
             notification.fadeOut();
         }, 2000);
     }
+
+    // Event listener untuk tombol Generate Jadwal
+    $('#generateJadwalBtn').on('click', function () {
+        $('#confirmGenerateJadwalModal').modal('show');
+    });
+
+    // Event listener untuk tombol konfirmasi Generate Jadwal
+    $('#confirmGenerate').on('click', function () {
+        $.ajax({
+            url: 'generate_jadwal.php',
+            type: 'POST',
+            success: function (response) {
+                console.log(response); // Tambahkan log respons
+                if (response.trim() === 'success') {
+                    loadData();
+                    showNotification('Jadwal berhasil digenerate', 'success');
+                } else {
+                    showNotification('Gagal generate jadwal: ' + response, 'danger');
+                }
+                $('#confirmGenerateJadwalModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                showNotification('Gagal generate jadwal', 'danger');
+                $('#confirmGenerateJadwalModal').modal('hide');
+            }
+        });
+    });
+
+    // Event listener untuk tombol Reset Jadwal
+    $('#resetJadwalBtn').on('click', function () {
+        $('#confirmResetJadwalModal').modal('show');
+    });
+
+    // Event listener untuk tombol konfirmasi Reset Jadwal
+    $('#confirmReset').on('click', function () {
+        $.ajax({
+            url: 'reset_jadwal.php',
+            type: 'POST',
+            success: function (response) {
+                console.log(response); // Tambahkan log respons
+                if (response.trim() === 'success') {
+                    loadData();
+                    showNotification('Semua data jadwal berhasil dihapus', 'success');
+                } else {
+                    showNotification('Gagal menghapus data jadwal: ' + response, 'danger');
+                }
+                $('#confirmResetJadwalModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                showNotification('Gagal menghapus data jadwal', 'danger');
+                $('#confirmResetJadwalModal').modal('hide');
+            }
+        });
+    });
 });
