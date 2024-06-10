@@ -70,5 +70,3 @@ Kode ini masih dalam tahap pembangunan. Terdapat kemungkinan adanya bug dan keku
 Terima kasih telah menggunakan SIJAKUL! Kami berharap aplikasi ini dapat membantu Anda dalam mengelola jadwal perkuliahan dengan lebih mudah dan efisien. Jangan ragu untuk memberikan masukan dan saran agar SIJAKUL dapat menjadi lebih baik.
 
 Selamat menggunakan!
-
-```
