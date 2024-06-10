@@ -40,6 +40,8 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
     - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
     - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
 
+## Youtube : https://www.youtube.com/watch?v=MMiZ-FZpy8U
+
 Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMPP, ikuti langkah-langkah berikut:
 
 ## Instalasi Menggunakan XAMPP:
