@@ -56,7 +56,7 @@ Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMP
     git clone https://github.com/zufarrizal/sijakul.git
     ```
     Atau
-   Bisa donwload manual di halaman github sijakul dengan klik code, kemudian Download ZIP
+   Bisa download manual di halaman github sijakul dengan klik code, kemudian Download ZIP
 
 3. **Pindahkan Direktori Proyek**:
    Pindahkan direktori proyek hasil clone ke direktori `htdocs` di dalam direktori instalasi XAMPP. Biasanya, ini terletak di:
