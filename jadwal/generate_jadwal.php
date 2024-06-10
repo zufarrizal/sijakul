@@ -63,6 +63,21 @@ function isRoomAvailable($conn, $id_ruangan, $hari, $jam_mulai, $jam_selesai)
     return $result['count'] == 0;
 }
 
+// Function to check if a class is scheduled at a given time and day
+function isClassScheduled($conn, $id_kelas, $hari, $jam_mulai, $jam_selesai)
+{
+    $query = "SELECT COUNT(*) as count FROM jadwal 
+              WHERE id_kelas = ? AND hari = ? 
+              AND ((jam_mulai < ? AND jam_selesai > ?) 
+              OR (jam_mulai < ? AND jam_selesai > ?) 
+              OR (jam_mulai >= ? AND jam_selesai <= ?))";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('isssssss', $id_kelas, $hari, $jam_selesai, $jam_mulai, $jam_mulai, $jam_selesai, $jam_mulai, $jam_selesai);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    return $result['count'] > 0;
+}
+
 // Generate jadwal
 $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 $time_slots = [
@@ -94,8 +109,8 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
             $id_dosen = $dosen_matkul[$id_matkul][array_rand($dosen_matkul[$id_matkul])];
             $id_ruangan = $ruangan_list[array_rand($ruangan_list)];
 
-            // Pengecekan bentrok ruangan
-            if (!isRoomAvailable($conn, $id_ruangan, $day, $slot[0], $slot[1])) {
+            // Pengecekan bentrok ruangan dan kelas
+            if (!isRoomAvailable($conn, $id_ruangan, $day, $slot[0], $slot[1]) || isClassScheduled($conn, $id_kelas, $day, $slot[0], $slot[1])) {
                 continue; // Jika bentrok, lanjutkan ke slot waktu berikutnya
             }
 
