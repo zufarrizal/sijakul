@@ -1,4 +1,4 @@
-**SIJAKUL - Sistem Informasi Jadwal Kuliah**
+### SIJAKUL - Sistem Informasi Jadwal Kuliah
 
 SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah administrasi dan pengelolaan jadwal perkuliahan di lingkungan akademis. Aplikasi ini mendukung pengelolaan data dosen, kelas, mata kuliah, ruangan, serta jadwal kuliah dengan integrasi hubungan antara dosen-mata kuliah dan kelas-mata kuliah. SIJAKUL juga dilengkapi dengan fitur-fitur canggih yang memungkinkan otomatisasi penjadwalan kuliah dan notifikasi jadwal.
 
