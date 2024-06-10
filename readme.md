@@ -37,33 +37,63 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
    - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
    - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
 
-## Instalasi:
+Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMPP, ikuti langkah-langkah berikut:
 
-Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal Anda, ikuti langkah-langkah berikut:
+## Instalasi Menggunakan XAMPP:
 
-1. **Clone repositori ini**:
+1. **Download dan Instal XAMPP**:
+   Jika belum memiliki XAMPP, unduh dan instal dari [situs resmi XAMPP](https://www.apachefriends.org/index.html).
+
+2. **Clone Repositori Ini**:
    Jalankan perintah berikut di terminal atau Command Prompt:
    ```
    git clone https://github.com/zufarrizal/sijakul.git
    ```
 
-2. **Masuk ke direktori proyek**:
-   Pindah ke direktori proyek dengan perintah:
+3. **Pindahkan Direktori Proyek**:
+   Pindahkan direktori proyek hasil clone ke direktori `htdocs` di dalam direktori instalasi XAMPP. Biasanya, ini terletak di:
    ```
-   cd sijakul
+   C:\xampp\htdocs
    ```
-
-3. **Instal dependensi**:
-   Instal semua dependensi yang diperlukan dengan perintah:
+   Sehingga direktori proyek akan menjadi:
    ```
-   npm install
+   C:\xampp\htdocs\sijakul
    ```
 
-4. **Jalankan aplikasi**:
-   Mulai aplikasi dengan perintah:
-   ```
-   npm start
-   ```
+4. **Konfigurasi Database**:
+   - Buka XAMPP dan jalankan `Apache` dan `MySQL`.
+   - Buka browser dan akses [phpMyAdmin](http://localhost/phpmyadmin).
+   - Buat database baru dengan nama `sijakul`.
+   - Impor file database (misalnya `sijakul.sql`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
+
+5. **Konfigurasi File `config.php`**:
+   - Buka file `config.php` atau file konfigurasi database lainnya di dalam proyek.
+   - Sesuaikan pengaturan koneksi database dengan detail berikut:
+     ```php
+     $servername = "localhost";
+     $username = "root";
+     $password = "";
+     $dbname = "sijakul";
+     ```
+
+6. **Instal Dependensi PHP**:
+   - Pastikan Anda telah menginstal Composer di sistem Anda. Jika belum, unduh dan instal dari [situs resmi Composer](https://getcomposer.org/).
+   - Buka terminal atau Command Prompt, lalu navigasikan ke direktori proyek:
+     ```
+     cd C:\xampp\htdocs\sijakul
+     ```
+   - Jalankan perintah berikut untuk menginstal dependensi yang diperlukan:
+     ```
+     composer install
+     ```
+
+7. **Jalankan Aplikasi**:
+   - Buka browser dan akses aplikasi dengan URL:
+     ```
+     http://localhost/sijakul
+     ```
+
+Dengan mengikuti langkah-langkah di atas, Anda dapat menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan XAMPP. Pastikan semua langkah telah diikuti dengan benar untuk memastikan aplikasi berjalan sesuai dengan yang diharapkan.
 
 ## Kontribusi & Fork:
 
