@@ -1,8 +1,8 @@
-## SIJAKUL - Sistem Informasi Jadwal Kuliah
+# SIJAKUL - Sistem Informasi Jadwal Kuliah
 
 SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah administrasi dan pengelolaan jadwal perkuliahan di lingkungan akademis. Aplikasi ini mendukung pengelolaan data dosen, kelas, mata kuliah, ruangan, serta jadwal kuliah dengan integrasi hubungan antara dosen-mata kuliah dan kelas-mata kuliah. SIJAKUL juga dilengkapi dengan fitur-fitur canggih yang memungkinkan otomatisasi penjadwalan kuliah dan notifikasi jadwal.
 
-### Fitur-fitur:
+## Fitur-fitur:
 
 1. **Dosen**:
    - Pengelolaan data dosen yang meliputi penambahan, pengeditan, dan penghapusan data dosen.
@@ -41,7 +41,7 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
    - Pengingat otomatis untuk dosen dan mahasiswa terkait jadwal kuliah.
    - Notifikasi melalui email dan aplikasi.
 
-### Instalasi:
+## Instalasi:
 
 Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal Anda, ikuti langkah-langkah berikut:
 
@@ -69,7 +69,7 @@ Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal Anda, ikuti langkah-langk
    npm start
    ```
 
-### Kontribusi & Fork:
+## Kontribusi & Fork:
 
 Kami sangat menghargai kontribusi dari komunitas untuk memperbaiki dan mengembangkan SIJAKUL. Untuk berkontribusi, Anda dapat melakukan fork repositori ini dan membuat pull request dengan perubahan yang Anda lakukan.
 
@@ -95,14 +95,14 @@ Langkah-langkah kontribusi:
 
 5. **Buat pull request** di GitHub.
 
-### Lisensi:
+## Lisensi:
 
 Proyek ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
 
-### Status Pengembangan:
+## Status Pengembangan:
 
 SIJAKUL masih dalam tahap pengembangan. Kami terus berupaya memperbaiki dan meningkatkan fitur-fitur yang ada. Versi saat ini mungkin masih mengandung bug dan kekurangan.
 
-### Terima Kasih:
+## Terima Kasih:
 
 Terima kasih telah menggunakan SIJAKUL! Kami berharap aplikasi ini dapat membantu Anda dalam mengelola jadwal perkuliahan dengan lebih mudah dan efisien. Jangan ragu untuk memberikan masukan dan saran agar SIJAKUL dapat menjadi lebih baik. Selamat menggunakan!
