@@ -267,7 +267,7 @@ $(document).ready(function () {
             type: 'POST',
             success: function (response) {
                 console.log(response); // Tambahkan log respons
-                if (response.trim() === 'success') {
+                if (response.trim() === 'Jadwal berhasil digenerate') {
                     loadData();
                     showNotification('Jadwal berhasil digenerate', 'success');
                 } else {
@@ -282,6 +282,7 @@ $(document).ready(function () {
             }
         });
     });
+
 
     // Event listener untuk tombol Reset Jadwal
     $('#resetJadwalBtn').on('click', function () {

@@ -96,7 +96,6 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
 
             // Pengecekan bentrok ruangan
             if (!isRoomAvailable($conn, $id_ruangan, $day, $slot[0], $slot[1])) {
-                echo "Ruangan bentrok: Hari: $day, Slot: " . $slot[0] . " - " . $slot[1] . ", Ruangan: $id_ruangan\n";
                 continue; // Jika bentrok, lanjutkan ke slot waktu berikutnya
             }
 
@@ -107,6 +106,7 @@ foreach ($kelas_matkul as $id_kelas => $matkuls) {
             $stmt->bind_param('sssiisi', $day, $slot[0], $slot[1], $id_kelas, $id_matkul, $id_dosen, $id_ruangan);
             if (!$stmt->execute()) {
                 echo "Error: " . $stmt->error . "\n";
+                exit; // Hentikan proses jika terjadi kesalahan
             } else {
                 $week_schedule[$day][] = $id_matkul;
                 $class_count++;
