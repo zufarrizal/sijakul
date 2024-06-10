@@ -162,6 +162,11 @@ $(document).ready(function () {
                         "Ruangan sudah digunakan di jam yang sama pada hari ini",
                         "danger"
                     );
+                } else if (response === "duplicate_kelas") {
+                    showNotification(
+                        "Kelas sudah ada jadwal jam yang sama pada hari ini",
+                        "danger"
+                    );
                 } else if (response === "success") {
                     $("#addJadwalModal").modal("hide");
                     loadData();
