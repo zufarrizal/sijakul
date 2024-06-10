@@ -6,31 +6,27 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
 
 1. **Dosen**:
    - Pengelolaan data dosen yang meliputi penambahan, pengeditan, dan penghapusan data dosen.
-   - Integrasi dengan data pribadi dosen seperti email dan nomor kontak.
 
 2. **Kelas**:
    - Pengelolaan data kelas yang meliputi penambahan, pengeditan, dan penghapusan data kelas.
-   - Menyediakan informasi tentang kapasitas kelas dan tingkat.
+   - Menyediakan informasi tentang kapasitas kelas.
 
 3. **Mata Kuliah (Matkul)**:
    - Pengelolaan data mata kuliah yang meliputi penambahan, pengeditan, dan penghapusan data mata kuliah.
-   - Informasi tentang jumlah SKS dan prasyarat mata kuliah.
+   - Informasi tentang jumlah SKS
 
 4. **Ruangan**:
    - Pengelolaan data ruangan yang meliputi penambahan, pengeditan, dan penghapusan data ruangan.
-   - Data kapasitas ruangan dan fasilitas yang tersedia.
+   - Data kapasitas ruangan.
 
 5. **Jadwal**:
    - Pengelolaan data jadwal kuliah yang meliputi penambahan, pengeditan, dan penghapusan jadwal kuliah.
-   - Menyediakan kalender visual untuk memudahkan pengelolaan jadwal.
 
 6. **Hubungan Dosen-Mata Kuliah**:
    - Pengelolaan hubungan antara dosen dengan mata kuliah yang diampu.
-   - Menyimpan data riwayat pengajaran dosen.
 
 7. **Hubungan Kelas-Mata Kuliah**:
    - Pengelolaan hubungan antara kelas dengan mata kuliah yang diikuti.
-   - Informasi kehadiran mahasiswa dalam kelas.
 
 8. **Auto Generate Jadwal**:
    - Fitur otomatis untuk menghasilkan jadwal kuliah berdasarkan preferensi dan aturan yang telah ditentukan.
