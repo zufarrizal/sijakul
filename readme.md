@@ -117,7 +117,7 @@ Langkah-langkah kontribusi:
 
 ## Lisensi:
 
-Proyek ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
+Proyek ini dilisensikan di bawah MIT License. Lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
 
 ## Status Pengembangan:
 
